@@ -45,5 +45,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 app.listen(3000);
-console.log('Open http://localhost:3000 to access the files now');
+console.log('Hi!!, Open http://localhost:3000 to access the files now');
 module.exports = app;
