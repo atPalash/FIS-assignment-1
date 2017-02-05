@@ -23,7 +23,7 @@ router.route('/')
     .post(function(req,res,next){
         console.log("request setup");
         console.log(req.body);
-        var json = {order:{
+        var json = {
                     "orderperson": {
                         "name" : req.body.name,
                         "email": req.body.email,
@@ -46,11 +46,11 @@ router.route('/')
                         "shippingphone": req.body.Rphone,
                         "shippingaddress": req.body.Raddress,
                         "shippingcountry":req.body.Rcountry
-                    }}};
+                    }};
         console.log("json setup");
         console.log(json);
         var xml = jsonxml(json);
-		console.log(xml);
+		xml = "<order xmlns:xsi = \"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"users.xsd\">" + xml + "</order>";
         validator.validateXML(xml, xsdFileName, function(err, result) {
             if (err) {
                 console.log('Error was found during validation of file:');
@@ -61,6 +61,8 @@ router.route('/')
             console.log('XML file is valid: ' + result.valid); // true
             res.writeHead(200,{'Content-Type':'text/plain'});
             res.end("New customer created \nPrinting xml content in text format: \n" + xml);
+            // res.writeHead(200,{'Content-Type':'text/xml'});
+            // res.end(xml);
         })
 
 
